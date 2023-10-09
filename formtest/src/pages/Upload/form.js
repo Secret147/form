@@ -12,6 +12,7 @@ function Form() {
         province: '',
         district: '',
     });
+    const [result, setResult] = useState([]);
     const hanoi = ['Đống Đa', 'Cầu Giấy', 'Hà Đông'];
     const tphcm = ['Quận 1', 'Quận 2', 'Quận 3'];
 
@@ -34,6 +35,13 @@ function Form() {
             alert('Vui lòng chọn quận huyện');
         } else {
             alert('Success');
+            setResult(formData);
+            setFormData({
+                phone: '',
+                email: '',
+                province: '',
+                district: '',
+            });
         }
         e.preventDefault();
         console.log(formData);
@@ -101,7 +109,7 @@ function Form() {
                                     <>
                                         {hanoi.map((hn) => {
                                             return (
-                                                <option key={hn} value="Ba Dình">
+                                                <option key={hn} value={hn}>
                                                     {hn}
                                                 </option>
                                             );
@@ -131,10 +139,10 @@ function Form() {
                     <div className={cx('result')}>
                         <h2>Kết quả</h2>
                         <div className={cx('result_main')}>
-                            <div>Số điện thoại:{formData.phone}</div>
-                            <div>Email:{formData.email}</div>
-                            <div>Tỉnh/Thành phố: {formData.province}</div>
-                            <div>Quận/huyện: {formData.district}</div>
+                            <div>Số điện thoại:{result.phone}</div>
+                            <div>Email:{result.email}</div>
+                            <div>Tỉnh/Thành phố: {result.province}</div>
+                            <div>Quận/huyện: {result.district}</div>
                         </div>
                     </div>
                 </div>
