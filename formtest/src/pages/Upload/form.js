@@ -13,8 +13,14 @@ function Form() {
         district: '',
     });
     const [result, setResult] = useState([]);
-    const hanoi = ['Đống Đa', 'Cầu Giấy', 'Hà Đông'];
-    const tphcm = ['Quận 1', 'Quận 2', 'Quận 3'];
+
+    // Danh sách tỉnh thành phố và quận huyện
+    const provinces = ['Chọn tỉnh / thành phố', 'Hà Nội', 'TP.Hồ Chí Minh', 'Nam Định'];
+    const districts = {
+        'Hà Nội': ['Chọn quận / huyện', 'Đống Đa', 'Cầu Giấy', 'Hà Đông'],
+        'TP.Hồ Chí Minh': ['Chọn quận / huyện', 'Quận 1', 'Quận 2', 'Quận 3'],
+        'Nam Định': ['Chọn quận / huyện', 'Xuân Trường', 'Giao Thủy', 'Hải Hậu'],
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -88,9 +94,11 @@ function Form() {
                                 onChange={handleInputChange}
                                 className={cx('input')}
                             >
-                                <option value="">Chọn tỉnh / thành phố</option>
-                                <option value="Hà Nội">Hà Nội</option>
-                                <option value="TP.Hồ Chí Minh">Hồ Chí Minh</option>
+                                {provinces.map((province) => (
+                                    <option key={province} value={province}>
+                                        {province}
+                                    </option>
+                                ))}
                             </select>
 
                             <br />
@@ -103,30 +111,12 @@ function Form() {
                                 onChange={handleInputChange}
                                 className={cx('input')}
                             >
-                                <option value="">Chọn quận / huyện</option>
-
-                                {formData.province === 'Hà Nội' && (
-                                    <>
-                                        {hanoi.map((hn) => {
-                                            return (
-                                                <option key={hn} value={hn}>
-                                                    {hn}
-                                                </option>
-                                            );
-                                        })}
-                                    </>
-                                )}
-                                {formData.province === 'TP.Hồ Chí Minh' && (
-                                    <>
-                                        {tphcm.map((hcm) => {
-                                            return (
-                                                <option key={hcm} value={hcm}>
-                                                    {hcm}
-                                                </option>
-                                            );
-                                        })}
-                                    </>
-                                )}
+                                {formData.province !== '' &&
+                                    districts[formData.province].map((district) => (
+                                        <option key={district} value={district}>
+                                            {district}
+                                        </option>
+                                    ))}
                             </select>
                             <br />
                             <br />
